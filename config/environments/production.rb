@@ -35,7 +35,12 @@ Rails.application.configure do
   # yet still be able to expire them through the digest params.
   config.assets.digest = true
 
-  config.serve_static_assets = true
+  #config.serve_static_assets = true
+  # this syntax is deprecated; serve_static_files should be handling this
+
+
+
+
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
   # Specifies the header that your server uses for sending files.
