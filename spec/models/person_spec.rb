@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Person, type: :model do
-  describe ".create" do
-    let(:person) do
+  let(:person) do
       Person.new(first_name: 'Alice', last_name: 'Smith')
     end
 
+  describe ".create" do
     it "is valid" do
       expect(person).to be_valid
     end
@@ -20,6 +20,12 @@ RSpec.describe Person, type: :model do
       person.last_name = nil
 
       expect(person).not_to be_valid
+    end
+  end
+
+  describe "#phone_numbers" do
+    it "returns an array of phone numbers" do
+      expect(person.phone_numbers).to eq([])
     end
   end
 end
