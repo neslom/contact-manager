@@ -8,15 +8,15 @@ RSpec.describe "people/index", type: :view do
         :last_name => "MyText"
       ),
       Person.create!(
-        :first_name => "MyText",
-        :last_name => "MyText"
+        :first_name => "SecondEntry",
+        :last_name => "SecondEntry"
       )
     ])
   end
 
-  xit "renders a list of people" do
+  it "renders a list of people" do
     render
     assert_select "tr>td", :text => "MyText".to_s, :count => 2
-    assert_select "tr>td", :text => "MyText".to_s, :count => 2
+    assert_select "tr>td", :text => "SecondEntry".to_s, :count => 2
   end
 end

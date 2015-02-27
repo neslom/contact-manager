@@ -2,17 +2,16 @@ require 'rails_helper'
 
 RSpec.describe Person, type: :model do
   describe ".create" do
+    it "is invalid without a first name" do
+      person = Person.create(last_name: "Smith")
 
-    context "without first name" do
-
-      it "is invalid" do
-        person = Person.create(first_name: nil)
-
-        expect(person).not_to be_valid
-      end
-
+      expect(person).to be_invalid
     end
 
-  end
+    it "is invalid without a last name" do
+      person = Person.create(first_name: "Bob")
 
+      expect(person).not_to be_valid
+    end
+  end
 end
