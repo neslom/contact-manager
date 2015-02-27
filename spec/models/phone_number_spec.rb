@@ -1,5 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe PhoneNumber, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:phone_number) { PhoneNumber.new(number: "1112223333") }
+
+  describe ".create" do
+    it "is valid" do
+      expect(phone_number).to be_valid
+    end
+
+    it "cannot be blank" do
+      phone_number.number = nil
+      expect(phone_number).to be_invalid
+    end
+  end
 end
