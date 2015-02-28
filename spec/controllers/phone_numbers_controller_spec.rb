@@ -2,8 +2,10 @@ require 'rails_helper'
 
 RSpec.describe PhoneNumbersController, type: :controller do
 
+  let(:person) { Person.create(first_name: "Bob", last_name: "Smith") }
+
   let(:valid_attributes) {
-    { number: "MyString", person_id: 1 }
+    { number: "MyString", person_id: person.id }
   }
 
   let(:invalid_attributes) {
@@ -139,7 +141,7 @@ RSpec.describe PhoneNumbersController, type: :controller do
     it "redirects to the phone_numbers list" do
       phone_number = PhoneNumber.create! valid_attributes
       delete :destroy, {:id => phone_number.to_param}, valid_session
-      expect(response).to redirect_to(phone_numbers_url)
+      expect(response).to redirect_to(person_path(person))
     end
   end
 
