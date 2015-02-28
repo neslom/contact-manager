@@ -2,8 +2,10 @@ require 'rails_helper'
 
 RSpec.describe EmailAddressesController, type: :controller do
 
+  let(:person) { Person.create(first_name: "Bobby", last_name: "Jones") }
+
   let(:valid_attributes) {
-    { address: 'molsen111@example.com', person_id: 1 }
+    { address: 'molsen111@example.com', person_id: person.id }
   }
 
   let(:invalid_attributes) {
@@ -57,9 +59,9 @@ RSpec.describe EmailAddressesController, type: :controller do
         expect(assigns(:email_address)).to be_persisted
       end
 
-      it "redirects to the created email_address" do
+      it "redirects to the created email_address' person" do
         post :create, {:email_address => valid_attributes}, valid_session
-        expect(response).to redirect_to(EmailAddress.last)
+        expect(response).to redirect_to(person)
       end
     end
 
