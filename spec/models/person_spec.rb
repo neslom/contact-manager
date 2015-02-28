@@ -28,4 +28,10 @@ RSpec.describe Person, type: :model do
       expect(person.phone_numbers).to eq([])
     end
   end
+
+  describe "#email_addresses" do
+    it "returns an array of email addresses" do
+      expect(person.email_addresses).to eq([])
+    end
+  end
 end
