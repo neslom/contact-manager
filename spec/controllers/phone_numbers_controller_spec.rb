@@ -2,8 +2,10 @@ require 'rails_helper'
 
 RSpec.describe PhoneNumbersController, type: :controller do
 
+  let(:person) { Person.create(first_name: "Bob", last_name: "Smith") }
+
   let(:valid_attributes) {
-    { number: "MyString", person_id: 1 }
+    { number: "MyString", person_id: person.id }
   }
 
   let(:invalid_attributes) {
@@ -81,8 +83,15 @@ RSpec.describe PhoneNumbersController, type: :controller do
 
   describe "PUT #update" do
     context "with valid params" do
+      let(:bob) { Person.create(first_name: "Bob", last_name: "Smith") }
+
+
+      let(:valid_attributes) {
+        { number: '555-5678', person_id: bob.id }
+      }
+
       let(:new_attributes) {
-        { number: "NewString", person_id: 2 }
+        { number: "NewString", person_id: bob.id }
       }
 
       it "updates the requested phone_number" do
@@ -90,7 +99,7 @@ RSpec.describe PhoneNumbersController, type: :controller do
         put :update, {:id => phone_number.to_param, :phone_number => new_attributes}, valid_session
         phone_number.reload
         expect(phone_number.number).to eq("NewString")
-        expect(phone_number.person_id).to eq(2)
+        expect(phone_number.person_id).to eq(bob.id)
       end
 
       it "assigns the requested phone_number as @phone_number" do
@@ -102,7 +111,7 @@ RSpec.describe PhoneNumbersController, type: :controller do
       it "redirects to the phone_number" do
         phone_number = PhoneNumber.create! valid_attributes
         put :update, {:id => phone_number.to_param, :phone_number => valid_attributes}, valid_session
-        expect(response).to redirect_to(phone_number)
+        expect(response).to redirect_to(bob)
       end
     end
 
@@ -132,7 +141,7 @@ RSpec.describe PhoneNumbersController, type: :controller do
     it "redirects to the phone_numbers list" do
       phone_number = PhoneNumber.create! valid_attributes
       delete :destroy, {:id => phone_number.to_param}, valid_session
-      expect(response).to redirect_to(phone_numbers_url)
+      expect(response).to redirect_to(person_path(person))
     end
   end
 
