@@ -5,6 +5,10 @@ RSpec.describe Person, type: :model do
       Person.new(first_name: 'Alice', last_name: 'Smith')
     end
 
+  it "converts to a string with last name, first name" do
+    expect(person.to_s).to eq("Smith, Alice")
+  end
+
   describe ".create" do
     it "is valid" do
       expect(person).to be_valid
