@@ -1,7 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe PhoneNumber, type: :model do
-  let(:phone_number) { PhoneNumber.new(number: "1112223333", person_id: 1) }
+  let(:person) { Person.create(first_name: "Billy", last_name: "Bob") }
+
+  let(:phone_number) do
+    PhoneNumber.create(number: "111-222-3333", contact_id: person.id, contact_type: "Person")
+  end
 
   describe ".create" do
     it "is valid" do
@@ -14,15 +18,15 @@ RSpec.describe PhoneNumber, type: :model do
       expect(phone_number).to be_invalid
     end
 
-    it "must have a referrence to a person" do
-      phone_number.person_id = nil
+    it "must have a referrence to a contact" do
+      phone_number.contact_id = nil
 
       expect(phone_number).to be_invalid
     end
 
   end
 
-  it "is associated with a person" do
-    expect(phone_number).to respond_to(:person)
+  it "is associated with a contact" do
+    expect(phone_number).to respond_to(:contact)
   end
 end
