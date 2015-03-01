@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe EmailAddress, type: :model do
-  let(:email_address) { EmailAddress.new(address: 'molsen@example.com', person_id: 1) }
+  let(:company) { Company.create(name: "Twitter") }
+
+  let(:email_address) { EmailAddress.new(address: 'molsen@example.com', contact_id: company.id, contact_type: 'Company') }
 
   describe ".create" do
 
@@ -15,9 +17,13 @@ RSpec.describe EmailAddress, type: :model do
     end
   end
 
-  it "must have a reference to a person" do
-    email_address.person_id = nil
+  it "must have a reference to a contact" do
+    email_address.contact_id = nil
 
     expect(email_address).to be_invalid
+  end
+
+  it "is associated with a contact" do
+    expect(email_address).to respond_to(:contact)
   end
 end
