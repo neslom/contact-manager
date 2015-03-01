@@ -16,7 +16,7 @@ RSpec.describe "people/index", type: :view do
 
   it "renders a list of people" do
     render
-    assert_select "tr>td", :text => "MyText".to_s, :count => 2
-    assert_select "tr>td", :text => "SecondEntry".to_s, :count => 2
+    assert_select "tr>td", :text => "MyText MyText".to_s, :count => 1
+    assert_select "tr>td", :text => "SecondEntry SecondEntry".to_s, :count => 1
   end
 end
