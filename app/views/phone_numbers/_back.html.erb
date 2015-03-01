@@ -1,0 +1,5 @@
+<% if phone_number.contact_type == "Company" %>
+  <%= link_to 'Back', company_path(phone_number.contact) %>
+<% else %>
+  <%= link_to 'Back', person_path(phone_number.contact) %>
+<% end %>
