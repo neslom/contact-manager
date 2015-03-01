@@ -24,14 +24,18 @@ RSpec.describe Person, type: :model do
   end
 
   describe "#phone_numbers" do
-    it "returns an array of phone numbers" do
-      expect(person.phone_numbers).to eq([])
+    it "responds with its created phone numbers" do
+      person.phone_numbers.build(number: '555-8888')
+
+      expect(person.phone_numbers.map(&:number)).to eq(['555-8888'])
     end
   end
 
   describe "#email_addresses" do
-    it "returns an array of email addresses" do
-      expect(person.email_addresses).to eq([])
+    it "responds with its created email addresses" do
+      person.email_addresses.build(address: 'molsen@example.com')
+
+      expect(person.email_addresses.map(&:address)).to eq(['molsen@example.com'])
     end
   end
 end
