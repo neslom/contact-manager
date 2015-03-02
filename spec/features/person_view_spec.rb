@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "the person view", type: :feature do
+RSpec.describe "the person view", type: :feature do
   let(:person) { Person.create(first_name: "Bill", last_name: "Clinton") }
 
   describe "#phone_numbers" do

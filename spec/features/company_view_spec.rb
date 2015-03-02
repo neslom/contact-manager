@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "the company view", type: :feature do
+RSpec.describe "the company view", type: :feature do
   let(:company) { Company.create(name: "Apple") }
 
   describe "#phone_numbers" do
