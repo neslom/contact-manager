@@ -14,6 +14,11 @@ RSpec.describe 'the application', type: :feature do
 
   context 'when logged out' do
     before(:each) do
+      Rails.application.routes.draw do
+        root to: 'site#index'
+        get '/login' => redirect('/auth/twitter'), as: :login
+        delete "/logout" => "sessions#destroy", as: :logout
+      end
       visit root_path
     end
 
@@ -31,7 +36,7 @@ RSpec.describe 'the application', type: :feature do
       Rails.application.routes.draw do
         root to: 'site#index'
         get '/fake_login' => 'fake_sessions#create', as: :fake_login
-        match '/login' => redirect('/auth/twitter'), as: :login
+        get '/login' => redirect('/auth/twitter'), as: :login
         delete "/logout" => "sessions#destroy", as: :logout
       end
       user = User.create(name: 'Jane Doe')
@@ -40,6 +45,14 @@ RSpec.describe 'the application', type: :feature do
 
     after(:each) do
       Rails.application.reload_routes!
+    end
+
+    it "has a logout link" do
+      expect(page).to have_link('Logout', href: logout_path)
+    end
+
+    it "does not have a login link" do
+      expect(page).not_to have_link('Login', href: login_path)
     end
 
   end

@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
+
   describe "POST #create" do
     it "logs in a new user" do
       request.env["omniauth.auth"] = {
@@ -27,7 +28,7 @@ RSpec.describe SessionsController, type: :controller do
       expect(controller.current_user.id).to eq(user.id)
     end
 
-    it "redirects to the companies page" do
+    it "redirects to the site index page" do
       request.env["omniauth.auth"] = {
         'provider' => 'twitter',
         'info' => {'name' => 'Charlie Allen'},
@@ -38,5 +39,33 @@ RSpec.describe SessionsController, type: :controller do
       post :create
       expect(response).to redirect_to(root_path)
     end
+  end
+
+  describe "DELETE #destroy" do
+    before(:each) do
+      Rails.application.routes.draw do
+        root 'site#index'
+        resource :sessions, :only => [:create, :destroy]
+      end
+    end
+
+    it "logs out" do
+      user = User.create(provider: 'twitter', uid: 'xyz456', name: 'Bob Jones')
+      session[:user_id] = user.id
+
+      delete :destroy
+
+      expect(session[:user_id]).to be_nil
+    end
+
+    it "redirects the user to the site#index page after logout" do
+      user = User.create(provider: 'twitter', uid: 'xyz456', name: 'Bob Jones')
+      session[:user_id] = user.id
+
+      delete :destroy
+
+      expect(response).to redirect_to(root_path)
+    end
+
   end
 end
