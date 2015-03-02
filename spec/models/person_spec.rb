@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Person, type: :model do
-  let(:person) do
-      Person.new(first_name: 'Alice', last_name: 'Smith')
-    end
+  let(:person) { Fabricate(:person) }
 
   it "converts to a string with last name, first name" do
     expect(person.to_s).to eq("Smith, Alice")
@@ -41,5 +39,9 @@ RSpec.describe Person, type: :model do
 
       expect(person.email_addresses.map(&:address)).to eq(['molsen@example.com'])
     end
+  end
+
+  it "is a child of the user" do
+    expect(person.user).to be_instance_of(User)
   end
 end

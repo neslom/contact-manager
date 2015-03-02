@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:user) { Fabricate(:user) }
+
+  it "has associated people" do
+    expect(user.people).to eq([])
+  end
 end

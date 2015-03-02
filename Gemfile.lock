@@ -63,6 +63,7 @@ GEM
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.3.0)
+    fabrication (2.12.2)
     globalid (0.3.3)
       activesupport (>= 4.1.0)
     hashie (3.4.0)
@@ -195,6 +196,7 @@ DEPENDENCIES
   byebug
   capybara
   coffee-rails (~> 4.1.0)
+  fabrication
   jbuilder (~> 2.0)
   jquery-rails
   omniauth
