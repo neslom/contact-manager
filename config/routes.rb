@@ -7,5 +7,7 @@ Rails.application.routes.draw do
 
   resources :people
 
+  get '/auth/:provider/callback' => 'sessions#create'
+
   root 'people#index'
 end
