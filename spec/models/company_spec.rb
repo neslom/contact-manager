@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Company, type: :model do
-  let(:company) { Company.new(name: "Apple") }
+  let(:company) { Fabricate(:company) }
 
   it "converts to a string of company name" do
     expect(company.to_s).to eq("Apple")
@@ -32,4 +32,5 @@ RSpec.describe Company, type: :model do
       expect(company.email_addresses.map(&:address)).to eq(["molsen@example.com"])
     end
   end
+
 end
