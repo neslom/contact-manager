@@ -9,5 +9,7 @@ Rails.application.routes.draw do
 
   get '/auth/:provider/callback' => 'sessions#create'
 
-  root 'people#index'
+  resource :sessions, :only => [:create]
+
+  root 'companies#index'
 end
