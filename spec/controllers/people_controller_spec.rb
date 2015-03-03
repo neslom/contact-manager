@@ -1,16 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe PeopleController, type: :controller do
+  let(:user) { Fabricate(:user) }
 
   let(:valid_attributes) {
-    { first_name: "Jane", last_name: "Doe" }
+    { first_name: "Jane", last_name: "Doe", user_id: user.id }
   }
 
   let(:invalid_attributes) {
     { first_name: nil, last_name: nil }
   }
 
-  let(:valid_session) { {} }
+  let(:valid_session) { {user_id: user.id} }
 
   describe "GET #index" do
     it "assigns the current user's people" do
