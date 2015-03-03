@@ -1,7 +1,8 @@
 require 'rails_helper'
 
-describe "the person view", type: :feature do
-  let(:person) { Person.create(first_name: "Bill", last_name: "Clinton") }
+RSpec.describe "the person view", type: :feature do
+  let(:person) { Fabricate(:person) }
+  let(:user) { person.user }
 
   describe "#phone_numbers" do
 
@@ -9,6 +10,7 @@ describe "the person view", type: :feature do
       person.phone_numbers.create(number: "867-5309")
       person.phone_numbers.create(number: "555-1234")
 
+      login_as(user)
       visit person_path(person)
     end
 
@@ -75,6 +77,7 @@ describe "the person view", type: :feature do
       person.email_addresses.create(address: "molsen@example.com")
       person.email_addresses.create(address: "belieber@example.com")
 
+      login_as(user)
       visit person_path(person)
     end
 

@@ -7,5 +7,17 @@ Rails.application.routes.draw do
 
   resources :people
 
-  root 'people#index'
+  # Auth
+
+  get '/auth/:provider/callback' => 'sessions#create'
+
+  resource :sessions, :only => [:create]
+
+  get "/login" => redirect("/auth/twitter"), as: :login
+
+  delete "/logout" => 'sessions#destroy', as: :logout
+
+  root 'site#index'
+
+  get "*path" => redirect("/")
 end
